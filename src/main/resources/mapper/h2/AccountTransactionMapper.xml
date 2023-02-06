@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+ 
+<!-- Mapperとxmlのマッピング -->
+<mapper namespace="com.tk244.cmcustdb.Repository.AccountTransactionMapper">
+ 
+    <select id="findAllAccountTransaction" resultType="com.tk244.cmcustdb.entity.AccountTransaction">
+        SELECT
+         *
+        FROM account_transaction, 
+        (SELECT
+            branch_id,
+            account_type,
+            account_id
+         FROM account, customer
+         WHERE account.cust_id = customer.cust_id
+         AND customer.cust_id = #{custId}) temp
+        WHERE account_transaction.branch_id = temp.branch_id
+        AND account_transaction.account_type = temp.account_type
+        AND account_transaction.account_id = temp.account_id;
+    </select>
+
+</mapper>

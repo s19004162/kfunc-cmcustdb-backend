@@ -1,0 +1,29 @@
+specVersion: 0.35.0
+name: cmcustdb-backend
+runtime: springboot
+registry: ""
+image: ""
+imageDigest: ""
+created: 2023-02-06T05:02:56.2060541Z
+build:
+  buildpacks: []
+  builder: ""
+  buildEnvs:
+  - name: BP_NATIVE_IMAGE
+    value: "false"
+  - name: BP_JVM_VERSION
+    value: "11"
+  - name: BP_MAVEN_BUILD_ARGUMENTS
+    value: -Pnative -Dmaven.test.skip=true --no-transfer-progress package
+run:
+  volumes: []
+  envs: []
+deploy:
+  namespace: ""
+  remote: false
+  annotations: {}
+  options: {}
+  labels: []
+  healthEndpoints:
+    liveness: /actuator/health
+    readiness: /actuator/health

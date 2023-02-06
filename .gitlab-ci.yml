@@ -1,0 +1,46 @@
+image: docker:20.10.16
+services:
+  - name: docker:20.10.16-dind
+    command: ["--insecure-registry=gitlab.cn-kimototy.example.com:5050"]
+
+stages:
+  - build
+  - test
+  - update-latest-image
+
+variables:
+  GIT_SSL_NO_VERIFY: "true"
+
+  CONTAINER_IMAGE: $CI_REGISTRY/$CI_PROJECT_PATH
+
+before_script:
+  - echo $CI_REGISTRY_PASSWORD | docker login -u $CI_REGISTRY_USER --password-stdin $CI_REGISTRY
+  - wget https://github.com/knative/func/releases/download/knative-v1.9.0/func_linux_amd64
+  - mv func_linux_amd64 func
+  - chmod +x func
+  - mv func /usr/local/bin
+  - func version
+
+build:
+  stage: build
+  script:
+    # - docker build --target build_app -t $CONTAINER_IMAGE:work .
+    # - docker build --target build_image -t $CONTAINER_IMAGE:$CI_COMMIT_SHA .
+    # - docker push $CONTAINER_IMAGE:$CI_COMMIT_SHA
+    - func create -l springboot -t http cmcustdb-backend
+    - ls -ltr cmcustdb-backend
+
+# test:
+#   stage: test
+#   script:
+#     - docker pull $CONTAINER_IMAGE:$CI_COMMIT_SHA
+# #    - docker run $CONTAINER_IMAGE:$CI_COMMIT_SHA /script/to/run/tests
+
+# update-latest-image:
+#   stage: update-latest-image
+#   script:
+#     - docker pull $CONTAINER_IMAGE:$CI_COMMIT_SHA
+#     - docker tag $CONTAINER_IMAGE:$CI_COMMIT_SHA $CONTAINER_IMAGE:latest
+#     - docker push $CONTAINER_IMAGE:latest
+#   only:
+#     - main

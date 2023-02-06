@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+ 
+<!-- Mapperとxmlのマッピング -->
+<mapper namespace="com.tk244.cmcustdb.Repository.UserMapper">
+ 
+    <select id="findOneCustomer" resultType="com.tk244.cmcustdb.entity.Customer">
+        SELECT
+         * 
+        FROM customer
+        WHERE cust_id = #{custId}
+    </select>
+
+    <select id="findAllCustomer" resultType="com.tk244.cmcustdb.entity.Customer">
+        SELECT
+         * 
+        FROM customer
+    </select>
+
+</mapper>

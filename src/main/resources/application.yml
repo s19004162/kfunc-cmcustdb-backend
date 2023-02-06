@@ -1,0 +1,49 @@
+logging:
+  level: 
+    com: 
+      tk244:
+        cmcustdb: DEBUG
+spring:
+  datasource:
+    url: jdbc:h2:mem:testdb;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE
+    driver-class-name: org.h2.Driver
+    username: dev
+    password: dev
+  h2:
+    console:
+      enabled: true
+      path: /h2-console
+      settings:
+        web-allow-others: true
+  sql:
+    init:
+      encoding: UTF-8
+      schema-locations: classpath:schema.sql
+      data-locations: classpath:data.sql
+
+mybatis:
+  mapper-locations: classpath*:/mapper/h2/*.xml
+  configuration:
+    map-underscore-to-camel-case: true
+  type-aliases-package: com.tk244.cmcustdb.entity
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+
+server:
+  tomcat:
+    accesslog:
+      enabled: true
+      directory: /dev
+      prefix: stdout
+      buffered: false
+      suffix:
+      file-date-format:
+      pattern: "%{X-Forwarded-For}i %l %u %t '%r' %s %b %D %F"
+    max-connections: 1
+
+      
+
