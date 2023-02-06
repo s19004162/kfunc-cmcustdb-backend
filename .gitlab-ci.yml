@@ -35,6 +35,6 @@ build:
 
 deploy:
   script:
-    - func deploy --registry $CONTAINER_IMAGE
+    - func deploy --image $CONTAINER_IMAGE/$CI_PROJECT_NAME:latest
   only:
     - main
