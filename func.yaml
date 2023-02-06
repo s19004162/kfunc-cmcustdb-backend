@@ -1,13 +1,13 @@
 specVersion: 0.35.0
 name: cmcustdb-backend
 runtime: springboot
-registry: ""
+registry: gitlab.cn-kimototy.example.com:5050/tk.automate/cmcustdb-backend
 image: ""
 imageDigest: ""
 created: 2023-02-06T05:02:56.2060541Z
 build:
   buildpacks: []
-  builder: ""
+  builder: pack
   buildEnvs:
   - name: BP_NATIVE_IMAGE
     value: "false"
