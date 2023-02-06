@@ -29,7 +29,8 @@ build:
     # - docker push $CONTAINER_IMAGE:$CI_COMMIT_SHA
     # - func deploy --registry gitlab.cn-kimototy.example.com:5050/tk.automate/cmcustdb-backend
     - func build --registry gitlab.cn-kimototy.example.com:5050/tk.automate/cmcustdb-backend
-    - func run --registry gitlab.cn-kimototy.example.com:5050/tk.automate/cmcustdb-backend
+    - docker image list
+    - func deploy --registry gitlab.cn-kimototy.example.com:5050/tk.automate/cmcustdb-backend
 # test:
 #   stage: test
 #   script:
