@@ -28,10 +28,10 @@ build:
     # - docker build --target build_image -t $CONTAINER_IMAGE:$CI_COMMIT_SHA .
     # - docker push $CONTAINER_IMAGE:$CI_COMMIT_SHA
     # - func deploy --registry gitlab.cn-kimototy.example.com:5050/tk.automate/cmcustdb-backend
-    - func build --registry $CONTAINER_IMAGE:$CI_COMMIT_SHA
+    - func build --registry $CONTAINER_IMAGE
     - docker image list
-    - docker push $CONTAINER_IMAGE:$CI_COMMIT_SHA
-    - func deploy --registry $CONTAINER_IMAGE:$CI_COMMIT_SHA
+    - docker push $CONTAINER_IMAGE
+    - func deploy --registry $CONTAINER_IMAGE
 # test:
 #   stage: test
 #   script:
