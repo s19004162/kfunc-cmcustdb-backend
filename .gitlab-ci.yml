@@ -14,7 +14,7 @@ variables:
   CONTAINER_IMAGE: $CI_REGISTRY/$CI_PROJECT_PATH
 
 before_script:
-#  - echo $CI_REGISTRY_PASSWORD | docker login -u $CI_REGISTRY_USER --password-stdin $CI_REGISTRY
+  - echo $CI_REGISTRY_PASSWORD | docker login -u $CI_REGISTRY_USER --password-stdin $CI_REGISTRY
   - wget https://github.com/knative/func/releases/download/knative-v1.9.0/func_linux_amd64
   - mv func_linux_amd64 func
   - chmod +x func
@@ -28,9 +28,10 @@ build:
     # - docker build --target build_image -t $CONTAINER_IMAGE:$CI_COMMIT_SHA .
     # - docker push $CONTAINER_IMAGE:$CI_COMMIT_SHA
     # - func deploy --registry gitlab.cn-kimototy.example.com:5050/tk.automate/cmcustdb-backend
-    - func build --registry gitlab.cn-kimototy.example.com:5050/tk.automate/cmcustdb-backend
+    - func build --registry $CONTAINER_IMAGE:$CI_COMMIT_SHA
     - docker image list
-    - func deploy --registry gitlab.cn-kimototy.example.com:5050/tk.automate/cmcustdb-backend
+    - docker push $CONTAINER_IMAGE:$CI_COMMIT_SHA
+    - func deploy --registry $CONTAINER_IMAGE:$CI_COMMIT_SHA
 # test:
 #   stage: test
 #   script:
