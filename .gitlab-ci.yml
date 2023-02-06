@@ -7,10 +7,10 @@ services:
 stages:
   - build
   - test
-  - update-latest-image
+  - deploy
 
 variables:
-  GIT_SSL_NO_VERIFY: "true"
+  # GIT_SSL_NO_VERIFY: "true"
   CONTAINER_IMAGE: $CI_REGISTRY/$CI_PROJECT_PATH
 
 before_script:
@@ -25,20 +25,16 @@ build:
   stage: build
   script:
     - func build --registry $CONTAINER_IMAGE
-    - docker image list
     - docker push $CONTAINER_IMAGE/$CI_PROJECT_NAME
-    - func deploy --registry $CONTAINER_IMAGE
+
 # test:
 #   stage: test
 #   script:
 #     - docker pull $CONTAINER_IMAGE:$CI_COMMIT_SHA
-# #    - docker run $CONTAINER_IMAGE:$CI_COMMIT_SHA /script/to/run/tests
+#     - docker run $CONTAINER_IMAGE:$CI_COMMIT_SHA /script/to/run/tests
 
-# update-latest-image:
-#   stage: update-latest-image
-#   script:
-#     - docker pull $CONTAINER_IMAGE:$CI_COMMIT_SHA
-#     - docker tag $CONTAINER_IMAGE:$CI_COMMIT_SHA $CONTAINER_IMAGE:latest
-#     - docker push $CONTAINER_IMAGE:latest
-#   only:
-#     - main
+deploy:
+  script:
+    - func deploy --registry $CONTAINER_IMAGE
+  only:
+    - main
