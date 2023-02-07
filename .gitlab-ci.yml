@@ -24,8 +24,11 @@ before_script:
 build:
   stage: build
   script:
-    - func build --registry $CONTAINER_IMAGE
-    - docker push $CONTAINER_IMAGE/$CI_PROJECT_NAME
+    - pwd
+    - ls /etc/
+    - ls /etc/docker
+    # - func build --registry $CONTAINER_IMAGE
+    # - docker push $CONTAINER_IMAGE/$CI_PROJECT_NAME
 
 # test:
 #   stage: test
@@ -33,9 +36,8 @@ build:
 #     - docker pull $CONTAINER_IMAGE:$CI_COMMIT_SHA
 #     - docker run $CONTAINER_IMAGE:$CI_COMMIT_SHA /script/to/run/tests
 
-deploy:
-  script:
-    - ls -ltr
-    - func deploy --image $CONTAINER_IMAGE/$CI_PROJECT_NAME:latest
-  only:
-    - main
+# deploy:
+#   script:
+#     - func deploy --image $CONTAINER_IMAGE/$CI_PROJECT_NAME:latest
+#   only:
+#     - main
