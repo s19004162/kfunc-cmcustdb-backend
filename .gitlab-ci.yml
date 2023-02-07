@@ -26,7 +26,8 @@ build:
   script:
     - pwd
     - ls /etc/
-    - ls /etc/docker
+    - ls /etc/ca-certificates
+    - cat /etc/ca-certificates.conf
     # - func build --registry $CONTAINER_IMAGE
     # - docker push $CONTAINER_IMAGE/$CI_PROJECT_NAME
 
