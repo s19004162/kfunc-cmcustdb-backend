@@ -36,6 +36,9 @@ build:
 
 deploy:
   script:
+    - ls /etc/gitlab-runner/certs/ca.crt
+    - cp /etc/gitlab-runner/certs/ca.crt /usr/local/share/ca-certificates/
+    - update-ca-certificates
     - func deploy --image $CONTAINER_IMAGE/$CI_PROJECT_NAME:latest
   only:
     - main
