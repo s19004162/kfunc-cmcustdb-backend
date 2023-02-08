@@ -24,10 +24,7 @@ before_script:
 build:
   stage: build
   script:
-    - pwd
-    - ls /etc/
-    - ls /etc/ca-certificates
-    - cat /etc/ca-certificates.conf
+    - docker images list --all
     # - func build --registry $CONTAINER_IMAGE
     # - docker push $CONTAINER_IMAGE/$CI_PROJECT_NAME
 
