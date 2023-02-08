@@ -10,7 +10,7 @@ stages:
   - deploy
 
 variables:
-  # GIT_SSL_NO_VERIFY: "true"
+  GIT_SSL_NO_VERIFY: "true"
   CONTAINER_IMAGE: $CI_REGISTRY/$CI_PROJECT_PATH
 
 before_script:
