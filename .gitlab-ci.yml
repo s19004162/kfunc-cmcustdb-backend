@@ -40,7 +40,8 @@ deploy:
     - ls /etc/gitlab-runner/certs/ca.crt
     - cp /etc/gitlab-runner/certs/ca.crt /usr/local/share/ca-certificates/
     - update-ca-certificates
-    - export KUBE_CONFIG_PATH=/home/gitlab-runner/config
-    - func deploy --image $CONTAINER_IMAGE/$CI_PROJECT_NAME:latest
+    - kubectl config get-contexts
+    # - kubectl config use-context 
+    # - func deploy --image $CONTAINER_IMAGE/$CI_PROJECT_NAME:latest
   only:
     - main
