@@ -14,15 +14,21 @@ variables:
   CONTAINER_IMAGE: $CI_REGISTRY/$CI_PROJECT_PATH
 
 before_script:
-  # - echo $CI_REGISTRY_PASSWORD | docker login -u $CI_REGISTRY_USER --password-stdin $CI_REGISTRY
+  - echo $CI_REGISTRY_PASSWORD | docker login -u $CI_REGISTRY_USER --password-stdin $CI_REGISTRY
+  # Install ca.crt
   - ls /etc/gitlab-runner/certs/ca.crt
   - cp /etc/gitlab-runner/certs/ca.crt /usr/local/share/ca-certificates/
   - update-ca-certificates
-  # - wget https://github.com/knative/func/releases/download/knative-v1.9.0/func_linux_amd64
-  # - mv func_linux_amd64 func
-  # - chmod +x func
-  # - mv func /usr/local/bin
-  # - func version
+  # Install kubectl
+  - curl -LO "https://storage.googleapis.com/kubernetes-release/release/$(curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt)/bin/linux/amd64/kubectl"
+  - chmod +x ./kubectl
+  - sudo mv ./kubectl /usr/local/bin/kubectl
+  # Install knative func
+  - wget https://github.com/knative/func/releases/download/knative-v1.9.0/func_linux_amd64
+  - mv func_linux_amd64 kn-func
+  - chmod +x kn-func
+  - mv kn-func /usr/local/bin
+  - kn-func version
 
 build:
   stage: build
@@ -38,9 +44,6 @@ build:
 #     - docker run $CONTAINER_IMAGE:$CI_COMMIT_SHA /script/to/run/tests
 
 deploy:
-  image:
-    name: ghcr.io/knative/func/func
-    entrypoint: [""]
   script:
     - kubectl config get-contexts
     # - kubectl config use-context 
