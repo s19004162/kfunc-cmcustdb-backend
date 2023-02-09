@@ -20,9 +20,7 @@ before_script:
   - cp /etc/gitlab-runner/certs/ca.crt /usr/local/share/ca-certificates/
   - update-ca-certificates
   # Install kubectl
-  - apt-get update
-  - apt-get install -y curl
-  - curl -LO "https://storage.googleapis.com/kubernetes-release/release/$(curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt)/bin/linux/amd64/kubectl"
+  - wget "https://storage.googleapis.com/kubernetes-release/release/v1.26.1/bin/linux/amd64/kubectl"
   - chmod +x ./kubectl
   - mv ./kubectl /usr/local/bin/kubectl
   # Install knative func
