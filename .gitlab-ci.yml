@@ -50,7 +50,7 @@ deploy:
   script:
     - kubectl config get-contexts
     - kubectl config use-context tk.automate/cmcustdb-backend:cmcustdb-gitlab-agent
-    - kubectl get pod -A
+#    - kubectl get pod -A
     - kubectl config view --raw
     - kn-func deploy --image $CONTAINER_IMAGE/$CI_PROJECT_NAME:latest
   only:
