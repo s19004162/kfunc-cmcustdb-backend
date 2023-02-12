@@ -11,6 +11,7 @@ stages:
 
 variables:
   GIT_SSL_NO_VERIFY: "true"
+  DOCKER_TLS_VERIFY: ""
   CONTAINER_IMAGE: $CI_REGISTRY/$CI_PROJECT_PATH
 
 before_script:
