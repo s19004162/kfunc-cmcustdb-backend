@@ -1,0 +1,5 @@
+ci_access:
+  projects:
+    - id: https://gitlab.cn-kimototy.example.com/tk.automate/cmcustdb-backend.git
+      access_as:
+        ci_job: {}
