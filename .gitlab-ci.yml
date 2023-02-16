@@ -52,6 +52,6 @@ deploy:
 #    - kubectl config view --raw
 #    - kubectl get pod -A --insecure-skip-tls-verify=true
 #    - kn-func deploy --build="false" --push="false" --image $CONTAINER_IMAGE/$CI_PROJECT_NAME:latest -v --env DOCKER_TLS_VERIFY=""
-    - kn-func deploy --build="false" --push="false" --image $CONTAINER_IMAGE/$CI_PROJECT_NAME:latest -v --namespace prod
+    - kn-func deploy --image $CONTAINER_IMAGE/$CI_PROJECT_NAME:latest -v --namespace prod
   only:
     - main
