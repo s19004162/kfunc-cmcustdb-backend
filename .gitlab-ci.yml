@@ -14,17 +14,21 @@ variables:
   CONTAINER_IMAGE: $CI_REGISTRY/$CI_PROJECT_PATH
 
 before_script:
+  # Loging to repository
   - echo $CI_REGISTRY_PASSWORD | docker login -u $CI_REGISTRY_USER --password-stdin $CI_REGISTRY
+
   # Install ca.crt
   - ls /etc/gitlab-runner/certs/ca.crt
   - cp /etc/gitlab-runner/certs/ca.crt /usr/local/share/ca-certificates/
   - ls /usr/local/share/ca-certificates/
   - cat /etc/gitlab-runner/certs/ca.crt >> /usr/local/share/ca-certificates/ca-certificates.crt
   - update-ca-certificates
+
   # Install kubectl
   - wget "https://storage.googleapis.com/kubernetes-release/release/v1.26.1/bin/linux/amd64/kubectl"
   - chmod +x ./kubectl
   - mv ./kubectl /usr/local/bin/kubectl
+
   # Install knative func
   - wget https://github.com/knative/func/releases/download/knative-v1.9.0/func_linux_amd64
   - mv func_linux_amd64 kn-func
@@ -35,9 +39,8 @@ before_script:
 build:
   stage: build
   script:
-    - docker images list --all
-    # - func build --registry $CONTAINER_IMAGE
-    # - docker push $CONTAINER_IMAGE/$CI_PROJECT_NAME
+    # Build application, create container image and push to container registry
+    - kn-func build --registry $CONTAINER_IMAGE --push -v
 
 # test:
 #   stage: test
@@ -47,12 +50,10 @@ build:
 
 deploy:
   script:
+    # Get context and set context to kubernetes agent
     - kubectl config get-contexts
     - kubectl config use-context tk.automate/cmcustdb-backend:cn-kimototy
-#    - kubectl config view --raw
-#    - kubectl get pod -A --insecure-skip-tls-verify=true
-#    - kn-func deploy --build="false" --push="false" --image $CONTAINER_IMAGE/$CI_PROJECT_NAME:latest -v --env DOCKER_TLS_VERIFY=""
-#    - kn-func deploy --image $CONTAINER_IMAGE/$CI_PROJECT_NAME:latest -v --namespace prod
-    - kn-func deploy --registry $CONTAINER_IMAGE --namespace prod -v
+    # Deploy application to kubernetes
+    - kn-func deploy --build=false --push=false --registry $CONTAINER_IMAGE --namespace prod -v
   only:
     - main
