@@ -45,15 +45,14 @@ build:
 # test:
 #   stage: test
 #   script:
-#     - docker pull $CONTAINER_IMAGE:$CI_COMMIT_SHA
-#     - docker run $CONTAINER_IMAGE:$CI_COMMIT_SHA /script/to/run/tests
+#     - Some test commands ...
 
 deploy:
   script:
     # Get context and set context to kubernetes agent
     - kubectl config get-contexts
     - kubectl config use-context tk.automate/cmcustdb-backend:cn-kimototy
-    - echo $CONTAINER_IMAGE
+
     # Deploy application to kubernetes
     - kn-func deploy --build=false --push=false --image $CONTAINER_IMAGE/$CI_PROJECT_NAME:latest --namespace prod -v
   only:
