@@ -55,6 +55,6 @@ deploy:
     - kubectl config use-context tk.automate/cmcustdb-backend:cn-kimototy
     - echo $CONTAINER_IMAGE
     # Deploy application to kubernetes
-    - kn-func deploy --build=false --push=false --registry $CONTAINER_IMAGE:latest --namespace prod -v
+    - kn-func deploy --build=false --push=false --registry $CONTAINER_IMAGE/$CI_PROJECT_NAME:latest --namespace prod -v
   only:
     - main
