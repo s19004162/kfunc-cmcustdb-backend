@@ -53,6 +53,7 @@ deploy:
     # Get context and set context to kubernetes agent
     - kubectl config get-contexts
     - kubectl config use-context tk.automate/cmcustdb-backend:cn-kimototy
+    - echo $CONTAINER_IMAGE
     # Deploy application to kubernetes
     - kn-func deploy --build=false --push=false --registry $CONTAINER_IMAGE:latest --namespace prod -v
   only:
