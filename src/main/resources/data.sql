@@ -1,6 +1,6 @@
 /* customer data*/
 INSERT INTO customer(cust_id, cust_name, cust_age, cust_gender, cust_address_no, cust_address, cust_tel, cust_email) 
-                VALUES('0000001', 'Elon Musk', 48, 1, '211-1111','30 Devonshire road #06-06', '050-5546-9090', 'tree@outlook.com');
+                VALUES('0000001','Tsuyoshi Kimoto', 48, 1, '211-1111','30 Devonshire road #06-06', '050-5546-9090', 'tree@outlook.com');
 INSERT INTO customer(cust_id, cust_name, cust_age, cust_gender, cust_address_no, cust_address, cust_tel, cust_email) 
                 VALUES('0000002', 'Bernard Arnault', 28, 2, '111-0011','埼玉県　大和市　10丁目', '070-1234-5678', '00002@yahoo.com');
 INSERT INTO customer(cust_id, cust_name, cust_age, cust_gender, cust_address_no, cust_address, cust_tel, cust_email) 
