@@ -1,0 +1,9 @@
+kubectl get all -n prod
+
+kn service list -n prod
+
+kn service list -n prod
+
+kubectl get all -n prod
+
+
